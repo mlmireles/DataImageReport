@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DataImageReport
 {
-	public partial class Form1 : Form
+	public partial class DataImage : Form
 	{
-		public Form1()
+		public DataImage()
 		{
 			InitializeComponent();
 		}
