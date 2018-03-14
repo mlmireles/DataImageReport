@@ -92,6 +92,7 @@ namespace DataImageReport
 			//workBook.Close(0);
 			// Exit from the application  
 			excel.Quit();
+			Marshal.ReleaseComObject(excel);
 
 			return true;
 		}
