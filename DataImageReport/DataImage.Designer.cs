@@ -31,11 +31,11 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataImage));
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox_Id = new System.Windows.Forms.TextBox();
 			this.title = new System.Windows.Forms.Label();
 			this.label_id = new System.Windows.Forms.Label();
 			this.label_name = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.textBox_Name = new System.Windows.Forms.TextBox();
 			this.picture_Signature = new System.Windows.Forms.PictureBox();
 			this.picture_Photo = new System.Windows.Forms.PictureBox();
 			this.button_Save = new System.Windows.Forms.Button();
@@ -60,12 +60,12 @@
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(130, 17);
 			this.toolStripStatusLabel.Text = "Data and images report";
 			// 
-			// textBox1
+			// textBox_Id
 			// 
-			this.textBox1.Location = new System.Drawing.Point(77, 64);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(213, 20);
-			this.textBox1.TabIndex = 1;
+			this.textBox_Id.Location = new System.Drawing.Point(77, 64);
+			this.textBox_Id.Name = "textBox_Id";
+			this.textBox_Id.Size = new System.Drawing.Size(213, 20);
+			this.textBox_Id.TabIndex = 1;
 			// 
 			// title
 			// 
@@ -95,12 +95,12 @@
 			this.label_name.TabIndex = 4;
 			this.label_name.Text = "Name";
 			// 
-			// textBox2
+			// textBox_Name
 			// 
-			this.textBox2.Location = new System.Drawing.Point(77, 94);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(213, 20);
-			this.textBox2.TabIndex = 5;
+			this.textBox_Name.Location = new System.Drawing.Point(77, 94);
+			this.textBox_Name.Name = "textBox_Name";
+			this.textBox_Name.Size = new System.Drawing.Size(213, 20);
+			this.textBox_Name.TabIndex = 5;
 			// 
 			// picture_Signature
 			// 
@@ -134,20 +134,22 @@
 			this.button_Save.TabIndex = 8;
 			this.button_Save.Text = "Save";
 			this.button_Save.UseVisualStyleBackColor = true;
+			this.button_Save.Click += new System.EventHandler(this.Button_Save_Click);
 			// 
 			// DataImage
 			// 
+			this.AcceptButton = this.button_Save;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(585, 261);
 			this.Controls.Add(this.button_Save);
 			this.Controls.Add(this.picture_Photo);
 			this.Controls.Add(this.picture_Signature);
-			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.textBox_Name);
 			this.Controls.Add(this.label_name);
 			this.Controls.Add(this.label_id);
 			this.Controls.Add(this.title);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.textBox_Id);
 			this.Controls.Add(this.statusStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Name = "DataImage";
@@ -164,11 +166,11 @@
 		#endregion
 
 		private System.Windows.Forms.StatusStrip statusStrip1;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBox_Id;
 		private System.Windows.Forms.Label title;
 		private System.Windows.Forms.Label label_id;
 		private System.Windows.Forms.Label label_name;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox textBox_Name;
 		private System.Windows.Forms.PictureBox picture_Signature;
 		private System.Windows.Forms.PictureBox picture_Photo;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
