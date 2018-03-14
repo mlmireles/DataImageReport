@@ -39,6 +39,8 @@
 			this.picture_Signature = new System.Windows.Forms.PictureBox();
 			this.picture_Photo = new System.Windows.Forms.PictureBox();
 			this.button_Save = new System.Windows.Forms.Button();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.statusStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picture_Signature)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picture_Photo)).BeginInit();
@@ -48,9 +50,9 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 239);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 263);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(585, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(581, 22);
 			this.statusStrip1.TabIndex = 0;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -136,12 +138,29 @@
 			this.button_Save.UseVisualStyleBackColor = true;
 			this.button_Save.Click += new System.EventHandler(this.Button_Save_Click);
 			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(76, 220);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(213, 20);
+			this.textBox1.TabIndex = 9;
+			this.textBox1.Text = " ";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(337, 220);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(220, 20);
+			this.textBox2.TabIndex = 10;
+			// 
 			// DataImage
 			// 
 			this.AcceptButton = this.button_Save;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(585, 261);
+			this.ClientSize = new System.Drawing.Size(581, 285);
+			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.button_Save);
 			this.Controls.Add(this.picture_Photo);
 			this.Controls.Add(this.picture_Signature);
@@ -175,5 +194,7 @@
 		private System.Windows.Forms.PictureBox picture_Photo;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 		private System.Windows.Forms.Button button_Save;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBox2;
 	}
 }

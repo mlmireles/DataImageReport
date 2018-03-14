@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Core;
+
 namespace DataImageReport
 {
 	public partial class DataImage : Form
@@ -35,16 +31,20 @@ namespace DataImageReport
 				return;
 			}
 
-			this.ExportData();
+			if(this.ExportData())
+			{
+				MessageBox.Show("Data save successfully", "Save", MessageBoxButtons.OK,
+					MessageBoxIcon.Information);
+				return;
+			}
 		}
 
-		private void ExportData()
+		private Boolean ExportData()
 		{
-			Microsoft.Office.Interop.Excel.Application excel;
-			Workbook workBook;
-			Worksheet workSheet;
+			Excel.Workbook workBook;
+			Excel.Worksheet workSheet;
 
-			excel = new Microsoft.Office.Interop.Excel.Application
+			Excel.Application excel = new Excel.Application
 			{
 				Visible = false
 			};
@@ -53,39 +53,85 @@ namespace DataImageReport
 			{
 				workBook = excel.Workbooks.Open("report.xlsx");
 			}
-			catch (System.Runtime.InteropServices.COMException e)
+			catch (COMException e)
 			{
-				workBook = excel.Workbooks.Add();
-				workSheet = workBook.Worksheets.Add();
+				if (e.ErrorCode != -2146827284)
+				{
+					MessageBox.Show("Something went wrong", "Excel", MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+					return false;
+				}
+
+				workBook = this.CreateNewBook(excel);
+			}
+
+			workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
+			int row = this.GetLastRow(workSheet);
+
+			workSheet.Cells[++row, 2] = this.textBox_Id.Text;
+			workSheet.Cells[row, 3] = this.textBox_Name.Text;
+
+			Excel.Range signature = workSheet.Cells[row, 5];
+			float left = (float)((double)signature.Left);
+			float top = (float)((double)signature.Top);
+			workSheet.Shapes.AddPicture("C:\\Users\\HS\\Pictures\\9GAG\\Programmers-A-different-kind-of-humans.jpg", 
+				MsoTriState.msoFalse, MsoTriState.msoCTrue, left, top, 200, 70);
+			signature.RowHeight = 70;
+			signature.ColumnWidth = 50;
+
+			Excel.Range photo = workSheet.Cells[row, 7];
+			left = (float)((double)photo.Left);
+			top = (float)((double)photo.Top);
+			workSheet.Shapes.AddPicture("C:\\Users\\HS\\Pictures\\9GAG\\Procrastinating.jpg", 
+				MsoTriState.msoFalse, MsoTriState.msoCTrue, left, top, 100, 130);
+			photo.RowHeight = 130;
+			photo.ColumnWidth = 30;
+
+			// Exit book
+			workBook.Close(true);
+			//workBook.Close(0);
+			// Exit from the application  
+			excel.Quit();
+
+			return true;
+		}
+
+		private Excel.Workbook CreateNewBook(Excel.Application excel)
+		{
+			try
+			{
+				Excel.Workbook	workBook = excel.Workbooks.Add();
+				Excel.Worksheet	workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
+
+				workSheet.Cells[1, 2] = "ID";
+				workSheet.Cells[1, 3] = "Name";
+				workSheet.Cells[1, 5] = "Signature";
+				workSheet.Cells[1, 7] = "Photo";
 
 				workBook.SaveAs("report.xlsx", Type.Missing, Type.Missing, 
 					Type.Missing, Type.Missing, Type.Missing, 
-					XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, 
+					Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, 
 					Type.Missing, Type.Missing);
+				
+				return workBook;
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Something went wrong", "Create file", MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				throw;
+			}
+		}
 
-				MessageBox.Show("New report created successfully", "Report",
-					MessageBoxButtons.OK, MessageBoxIcon.Information);
+		private int GetLastRow(Excel.Worksheet workSheet)
+		{
+			int row = 3;
+			while (!String.IsNullOrEmpty(((Excel.Range)workSheet.Cells[row, 2]).Text))
+			{
+				row += 2;
 			}
 
-			/*
-			workSheet = (Worksheet)workBook.Worksheets.get_Item(1);
-			Range CR = (Range)workSheet.Cells[1, 1];
-			CR.Select();
-
-			workSheet.PasteSpecial(CR, Type.Missing, Type.Missing, 
-				Type.Missing, Type.Missing, Type.Missing, true);
-
-			workSheet.SaveAs("report");
-
-			// save the application  
-			workBook.SaveAs("report.xls", Type.Missing, Type.Missing, 
-				Type.Missing, Type.Missing, Type.Missing, 
-				XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, 
-				Type.Missing, Type.Missing);
-			*/
-
-			// Exit from the application  
-			excel.Quit();
+			return row;
 		}
 	}
 }
